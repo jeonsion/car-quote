@@ -21,18 +21,18 @@ export const ResultCard = ({ quote }: Props) => {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 gap-3">
-          <div className="cell-sum-strong rounded p-3">
+          <div className="cell-sum-strong rounded p-4">
             <div className="text-xs text-muted-foreground">Real Total</div>
-            <div className="text-2xl font-bold">{CURRENCY.format(c.realTotal)}</div>
+            <div className="text-3xl font-bold">{CURRENCY.format(c.realTotal)}</div>
             <div className="mt-1 text-xs text-muted-foreground whitespace-pre-wrap break-words">
               Real Total = DAS + 월(세후)×납부횟수 + DMV + 종료수수료 + 초과마일
               <br />
               {realFormula}
             </div>
           </div>
-          <div className="cell-sum rounded p-3">
+          <div className="cell-sum rounded p-4">
             <div className="text-xs text-muted-foreground">Effective Monthly</div>
-            <div className="text-2xl font-bold">{CURRENCY.format(c.effectiveMonthly)}</div>
+            <div className="text-3xl font-bold">{CURRENCY.format(c.effectiveMonthly)}</div>
             <div className="mt-1 text-xs text-muted-foreground whitespace-pre-wrap break-words">
               Effective Monthly = Real Total ÷ 기간(개월)
               <br />
