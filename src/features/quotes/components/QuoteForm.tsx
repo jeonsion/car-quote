@@ -107,7 +107,7 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
         <Input id="term" {...bindNumber('termMonths')} />
       </div>
       <div>
-        <Label htmlFor="monthlyBase">Monthly Base</Label>
+        <Label htmlFor="monthlyBase">Monthly Payment</Label>
         <Input
           id="monthlyBase"
           value={monthlyBaseInput}
