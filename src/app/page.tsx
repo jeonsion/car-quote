@@ -1,6 +1,7 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { SITE } from '@/constants/site'
 import { SAMPLE_QUOTES } from '@/features/quotes/constants/sample'
 import { QuoteForm } from '@/features/quotes/components/QuoteForm'
 import { ResultCard } from '@/features/quotes/components/ResultCard'
@@ -41,14 +42,9 @@ export default function Page() {
               monthlyMilesAdd: 0,
               taxPercent: 0,
               firstMonthInDAS: false,
-              firstMonthAmount: 0,
               downpayment: 0,
-              acquisition: 0,
               dmvFee: 0,
               dispositionFee: 0,
-              allowMiles: 0,
-              expectMiles: 0,
-              overmileRate: 0,
             }
           : q
       )
@@ -66,6 +62,19 @@ export default function Page() {
 
   return (
     <main className="grid grid-cols-1 gap-6 md:grid-cols-12">
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: SITE.name,
+            applicationCategory: 'BusinessApplication',
+            description: SITE.description,
+          }),
+        }}
+      />
       <Card className="md:col-span-8">
         <CardHeader className="flex-row items-center justify-between">
           <CardTitle>견적 입력</CardTitle>

@@ -7,14 +7,9 @@ export type Quote = {
   monthlyMilesAdd?: number
   taxPercent: number
   firstMonthInDAS: boolean
-  firstMonthAmount?: number
   downpayment: number
-  acquisition: number
   dmvFee: number
   dispositionFee?: number
-  allowMiles?: number
-  expectMiles?: number
-  overmileRate?: number
 }
 
 export type QuoteComputed = {
@@ -22,7 +17,6 @@ export type QuoteComputed = {
   monthlyAfterTax: number
   totalDAS: number
   payMonths: number
-  mileageOverage: number
   realTotal: number
   effectiveMonthly: number
 }

@@ -20,16 +20,9 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
   React.useEffect(() => {
     setNumInputs({
       termMonths: String(quote.termMonths ?? ''),
-      monthlyCreditAdd: String(quote.monthlyCreditAdd ?? ''),
-      monthlyMilesAdd: String(quote.monthlyMilesAdd ?? ''),
-      firstMonthAmount: String(quote.firstMonthAmount ?? ''),
       downpayment: String(quote.downpayment ?? ''),
-      acquisition: String(quote.acquisition ?? ''),
       dmvFee: String(quote.dmvFee ?? ''),
       dispositionFee: String(quote.dispositionFee ?? ''),
-      allowMiles: String(quote.allowMiles ?? ''),
-      expectMiles: String(quote.expectMiles ?? ''),
-      overmileRate: String(quote.overmileRate ?? ''),
     })
   }, [quote.id])
 
@@ -57,6 +50,45 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
     setTaxInput(String(quote.taxPercent ?? ''))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quote.id])
+
+  const [locating, setLocating] = React.useState(false)
+  const locateAndSearchTax = React.useCallback(() => {
+    try {
+      setLocating(true)
+      if (!('geolocation' in navigator)) {
+        window.open('https://www.google.com/search?q=' + encodeURIComponent('sales tax near me'), '_blank', 'noopener,noreferrer')
+        setLocating(false)
+        return
+      }
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          try {
+            const { latitude, longitude } = pos.coords
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
+              { headers: { 'Accept-Language': 'en' } }
+            )
+            const data = await res.json()
+            const addr = data?.address || {}
+            const place = addr.city || addr.town || addr.village || addr.county || addr.state || addr.country || 'near me'
+            const q = encodeURIComponent(`${place} sales tax`)
+            window.open(`https://www.google.com/search?q=${q}` , '_blank', 'noopener,noreferrer')
+          } catch {
+            window.open('https://www.google.com/search?q=' + encodeURIComponent('sales tax near me'), '_blank', 'noopener,noreferrer')
+          } finally {
+            setLocating(false)
+          }
+        },
+        () => {
+          window.open('https://www.google.com/search?q=' + encodeURIComponent('sales tax near me'), '_blank', 'noopener,noreferrer')
+          setLocating(false)
+        },
+        { timeout: 8000 }
+      )
+    } catch {
+      setLocating(false)
+    }
+  }, [])
 
   // Keep raw string for monthlyBase to avoid NaN and allow editing/deleting smoothly
   const [monthlyBaseInput, setMonthlyBaseInput] = React.useState<string>(String(quote.monthlyBase ?? ''))
@@ -93,16 +125,24 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
           }}
         />
       </div>
+      
       <div>
-        <Label htmlFor="monthlyCreditAdd">크레딧 추가</Label>
-        <Input id="monthlyCreditAdd" {...bindNumber('monthlyCreditAdd')} />
-      </div>
-      <div>
-        <Label htmlFor="monthlyMilesAdd">마일 추가</Label>
-        <Input id="monthlyMilesAdd" {...bindNumber('monthlyMilesAdd')} />
-      </div>
-      <div>
-        <Label htmlFor="taxPercent">세율(%)</Label>
+        <div className="mb-1 flex items-center justify-between">
+          <Label htmlFor="taxPercent">세율(%)</Label>
+          <button
+            type="button"
+            onClick={locateAndSearchTax}
+            title="현재 위치로 세율 검색"
+            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-muted"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M12 21s7-4.35 7-11a7 7 0 10-14 0c0 6.65 7 11 7 11z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+              <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+            </svg>
+            {locating ? '검색 중…' : '내 위치로 검색'}
+            <span className="sr-only">현재 위치 기반 세율 검색</span>
+          </button>
+        </div>
         <Input
           id="taxPercent"
           value={taxInput}
@@ -123,47 +163,27 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
           }}
         />
       </div>
-      <div className="flex items-end gap-2">
-        <div className="flex flex-col">
-          <Label htmlFor="firstMonthInDAS">첫 달 요금 DAS 포함</Label>
-          <Switch
-            id="firstMonthInDAS"
-            checked={quote.firstMonthInDAS}
-            onCheckedChange={(v) => set('firstMonthInDAS')(v as any)}
-          />
+      <div>
+        <Label htmlFor="downpayment">Total Down Payment</Label>
+        <div className="flex items-center gap-3">
+          <Input id="downpayment" {...bindNumber('downpayment')} />
+          <div className="flex items-center gap-2">
+            <Switch
+              id="firstMonthInDAS"
+              checked={quote.firstMonthInDAS}
+              onCheckedChange={(v) => set('firstMonthInDAS')(v as any)}
+            />
+            <span className="text-xs text-muted-foreground whitespace-nowrap">첫 달 포함</span>
+          </div>
         </div>
-        <div className="flex-[4] min-w-0">
-          <Label htmlFor="firstMonthAmount">금액</Label>
-          <Input id="firstMonthAmount" {...bindNumber('firstMonthAmount')} />
-        </div>
       </div>
-      <div>
-        <Label htmlFor="downpayment">DAS: 다운페이</Label>
-        <Input id="downpayment" {...bindNumber('downpayment')} />
-      </div>
-      <div>
-        <Label htmlFor="acquisition">취득수수료</Label>
-        <Input id="acquisition" {...bindNumber('acquisition')} />
-      </div>
-      <div>
+      <div className="md:max-w-[14rem]">
         <Label htmlFor="dmvFee">DMV/등록비</Label>
         <Input id="dmvFee" {...bindNumber('dmvFee')} />
       </div>
-      <div>
+      <div className="md:max-w-[14rem]">
         <Label htmlFor="dispositionFee">종료 수수료(선택)</Label>
         <Input id="dispositionFee" {...bindNumber('dispositionFee')} />
-      </div>
-      <div>
-        <Label htmlFor="allowMiles">연간 허용(선택)</Label>
-        <Input id="allowMiles" {...bindNumber('allowMiles')} />
-      </div>
-      <div>
-        <Label htmlFor="expectMiles">예상(선택)</Label>
-        <Input id="expectMiles" {...bindNumber('expectMiles')} />
-      </div>
-      <div>
-        <Label htmlFor="overmileRate">초과요금($/mile)</Label>
-        <Input id="overmileRate" {...bindNumber('overmileRate')} />
       </div>
     </div>
   )

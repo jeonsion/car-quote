@@ -21,10 +21,9 @@ export const QuotesTable = ({ quotes }: Props) => {
         <thead>
           <tr className="border-b text-left">
             <th className="p-2">딜러</th>
-            <th className="p-2 text-right">DAS</th>
+            <th className="p-2 text-right">Total Down Payment</th>
             <th className="p-2 text-right">월(세후)</th>
             <th className="p-2 text-right">DMV</th>
-            <th className="p-2 text-right">초과마일</th>
             <th className="p-2 text-right">Real Total</th>
             <th className="p-2 text-right">Effective</th>
             <th className="p-2">배지</th>
@@ -42,7 +41,6 @@ export const QuotesTable = ({ quotes }: Props) => {
                 <td className="p-2 text-right">{CURRENCY.format(c.totalDAS)}</td>
                 <td className="p-2 text-right">{CURRENCY.format(c.monthlyAfterTax)}</td>
                 <td className="p-2 text-right">{CURRENCY.format(q.dmvFee)}</td>
-                <td className="p-2 text-right">{c.mileageOverage > 0 ? CURRENCY.format(c.mileageOverage) : '-'}</td>
                 <td className="p-2 text-right font-medium">{CURRENCY.format(c.realTotal)}</td>
                 <td className="p-2 text-right">{CURRENCY.format(c.effectiveMonthly)}</td>
                 <td className="p-2 text-xs">{badges.join(', ') || '-'}</td>

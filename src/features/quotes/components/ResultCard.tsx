@@ -8,10 +8,10 @@ type Props = { quote: Quote }
 export const ResultCard = ({ quote }: Props) => {
   const c = computeAll(quote)
   const essentialFilled =
-    quote.termMonths > 0 && quote.monthlyBase >= 0 && quote.taxPercent >= 0 && quote.downpayment >= 0 && quote.acquisition >= 0 && quote.dmvFee >= 0
+    quote.termMonths > 0 && quote.monthlyBase >= 0 && quote.taxPercent >= 0 && quote.downpayment >= 0 && quote.dmvFee >= 0
 
   const money = (v: number) => CURRENCY.format(v)
-  const realFormula = `= ${money(c.totalDAS)} + ${money(c.monthlyAfterTax)} × ${c.payMonths} + ${money(quote.dmvFee)} + ${money(quote.dispositionFee || 0)} + ${money(c.mileageOverage)} = ${money(c.realTotal)}`
+  const realFormula = `= ${money(c.totalDAS)} + ${money(c.monthlyAfterTax)} × ${c.payMonths} + ${money(quote.dmvFee)} + ${money(quote.dispositionFee || 0)} = ${money(c.realTotal)}`
   const effFormula = `= ${money(c.realTotal)} ÷ ${quote.termMonths} = ${money(c.effectiveMonthly)}`
 
   return (
@@ -43,9 +43,9 @@ export const ResultCard = ({ quote }: Props) => {
         <div className="mt-3 grid grid-cols-2 gap-2 text-sm text-muted-foreground">
           <div>월(세전): {CURRENCY.format(c.monthlyPreTax)}</div>
           <div>월(세후): {CURRENCY.format(c.monthlyAfterTax)}</div>
-          <div>DAS 합계: {CURRENCY.format(c.totalDAS)}</div>
+          <div>Total Down Payment: {CURRENCY.format(c.totalDAS)}</div>
           <div>납부 횟수: {c.payMonths}</div>
-          {c.mileageOverage > 0 && <div>초과마일: {CURRENCY.format(c.mileageOverage)}</div>}
+          {/* mileage fields removed */}
         </div>
         {quote.taxPercent > 20 || quote.taxPercent < 0 ? (
           <div className="mt-3 text-xs text-destructive">세율은 0–20% 범위를 권장합니다.</div>
