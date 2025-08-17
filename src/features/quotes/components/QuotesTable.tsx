@@ -20,11 +20,12 @@ export const QuotesTable = ({ quotes }: Props) => {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b text-left">
-            <th className="p-2">Dealer</th>
-            <th className="p-2 text-right">Total Down Payment</th>
-            <th className="p-2 text-right">Monthly (after tax)</th>
+            <th className="p-2">Title</th>
+            <th className="p-2">Notes</th>
+            <th className="p-2 text-right">Down Payment</th>
+            <th className="p-2 text-right">Monthly</th>
             <th className="p-2 text-right">DMV</th>
-            <th className="p-2 text-right">Real Total</th>
+            <th className="p-2 text-right">Total</th>
             <th className="p-2 text-right">Effective</th>
             <th className="p-2">Badges</th>
           </tr>
@@ -38,6 +39,7 @@ export const QuotesTable = ({ quotes }: Props) => {
             return (
               <tr key={q.id} className="border-b hover:bg-muted/40">
                 <td className="p-2">{q.dealer ?? '-'}</td>
+                <td className="p-2 text-xs text-muted-foreground max-w-[18rem] truncate" title={q.extras ?? ''}>{q.extras ?? '-'}</td>
                 <td className="p-2 text-right">{CURRENCY.format(c.totalDAS)}</td>
                 <td className="p-2 text-right">{CURRENCY.format(c.monthlyAfterTax)}</td>
                 <td className="p-2 text-right">{CURRENCY.format(q.dmvFee)}</td>

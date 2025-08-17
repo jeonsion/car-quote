@@ -6,7 +6,9 @@ export const monthlyPreTax = (q: Quote) => q.monthlyBase
 
 export const monthlyAfterTax = (q: Quote) => monthlyPreTax(q) * (1 + q.taxPercent / 100)
 
-export const totalDAS = (q: Quote) => q.downpayment + (q.firstMonthInDAS ? monthlyAfterTax(q) : 0)
+// Total Down Payment should not change when including the first month in DAS.
+// Only the number of payments decreases.
+export const totalDAS = (q: Quote) => q.downpayment
 
 export const payMonths = (q: Quote) => q.termMonths - (q.firstMonthInDAS ? 1 : 0)
 

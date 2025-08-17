@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import clsx from 'clsx'
 import { CURRENCY } from '@/constants/format'
 import { computeAll } from '@/features/quotes/lib/calc'
 import { Quote } from '@/features/quotes/types'
 
-type Props = { quote: Quote }
+type Props = { quote: Quote; className?: string }
 
-export const ResultCard = ({ quote }: Props) => {
+export const ResultCard = ({ quote, className }: Props) => {
   const c = computeAll(quote)
   const essentialFilled =
     quote.termMonths > 0 && quote.monthlyBase >= 0 && quote.taxPercent >= 0 && quote.downpayment >= 0 && quote.dmvFee >= 0
@@ -15,7 +16,7 @@ export const ResultCard = ({ quote }: Props) => {
   const effFormula = `= ${money(c.realTotal)} ÷ ${quote.termMonths} = ${money(c.effectiveMonthly)}`
 
   return (
-    <Card className={essentialFilled ? '' : 'opacity-60'} title={essentialFilled ? undefined : 'Fill required fields to see results.'}>
+    <Card className={clsx(essentialFilled ? '' : 'opacity-60', className)} title={essentialFilled ? undefined : 'Fill required fields to see results.'}>
       <CardHeader>
         <CardTitle>Results</CardTitle>
       </CardHeader>

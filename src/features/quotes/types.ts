@@ -1,6 +1,7 @@
 export type Quote = {
   id: string
   dealer?: string
+  extras?: string
   termMonths: number
   monthlyBase: number
   monthlyCreditAdd?: number

@@ -102,6 +102,10 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
         <Label htmlFor="dealer">Notes/Dealer</Label>
         <Input id="dealer" value={quote.dealer ?? ''} onChange={(e) => set('dealer')(e.target.value as any)} />
       </div>
+      <div className="col-span-2 md:col-span-3">
+        <Label htmlFor="extras">Additional notes (trim, AWD/FWD, color, etc.)</Label>
+        <Input id="extras" value={quote.extras ?? ''} onChange={(e) => set('extras')(e.target.value as any)} placeholder="e.g., XLE Premium, AWD, White" />
+      </div>
       <div>
         <Label htmlFor="term">Term (months)</Label>
         <Input id="term" {...bindNumber('termMonths')} />
