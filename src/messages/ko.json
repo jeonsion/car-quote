@@ -1,0 +1,21 @@
+{
+  "title": "리스 비교 계산기",
+  "subtitle": "지역 세율 입력, 월 과세 고정. 여러 견적을 표처럼 입력해 Real Total과 Effective Monthly를 한눈에 비교하세요.",
+  "form": {
+    "dealer": "메모/딜러명",
+    "term": "기간(개월)",
+    "monthlyBase": "월 기본요금",
+    "taxPercent": "세율(%)",
+    "firstMonth": "첫 달 요금 DAS 포함",
+    "downpayment": "Total Down Payment",
+    "dmv": "DMV/등록비",
+    "disposition": "종료 수수료(선택)"
+  },
+  "result": {
+    "title": "결과",
+    "realTotal": "Real Total",
+    "effective": "Effective Monthly"
+  },
+  "compare": "비교"
+}
+

@@ -20,21 +20,21 @@ export const QuotesTable = ({ quotes }: Props) => {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b text-left">
-            <th className="p-2">딜러</th>
+            <th className="p-2">Dealer</th>
             <th className="p-2 text-right">Total Down Payment</th>
-            <th className="p-2 text-right">월(세후)</th>
+            <th className="p-2 text-right">Monthly (after tax)</th>
             <th className="p-2 text-right">DMV</th>
             <th className="p-2 text-right">Real Total</th>
             <th className="p-2 text-right">Effective</th>
-            <th className="p-2">배지</th>
+            <th className="p-2">Badges</th>
           </tr>
         </thead>
         <tbody className="[&_tr:nth-child(odd)]:bg-muted/30">
           {ranked.map(({ q, c }) => {
             const badges: string[] = []
-            if (c.realTotal === minRealTotal) badges.push('최저 총지출')
-            if (c.totalDAS === minDAS) badges.push('최저 DAS')
-            if (c.monthlyAfterTax === minMonthly) badges.push('최저 월납부')
+            if (c.realTotal === minRealTotal) badges.push('Lowest Total')
+            if (c.totalDAS === minDAS) badges.push('Lowest DAS')
+            if (c.monthlyAfterTax === minMonthly) badges.push('Lowest Monthly')
             return (
               <tr key={q.id} className="border-b hover:bg-muted/40">
                 <td className="p-2">{q.dealer ?? '-'}</td>

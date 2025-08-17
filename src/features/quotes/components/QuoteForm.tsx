@@ -99,20 +99,20 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
       <div className="col-span-2 md:col-span-3">
-        <Label htmlFor="dealer">메모/딜러명</Label>
+        <Label htmlFor="dealer">Notes/Dealer</Label>
         <Input id="dealer" value={quote.dealer ?? ''} onChange={(e) => set('dealer')(e.target.value as any)} />
       </div>
       <div>
-        <Label htmlFor="term">기간(개월)</Label>
+        <Label htmlFor="term">Term (months)</Label>
         <Input id="term" {...bindNumber('termMonths')} />
       </div>
       <div>
-        <Label htmlFor="monthlyBase">월 기본요금</Label>
+        <Label htmlFor="monthlyBase">Monthly Base</Label>
         <Input
           id="monthlyBase"
           value={monthlyBaseInput}
           inputMode="decimal"
-          placeholder="예: 129.00"
+          placeholder="e.g., 129.00"
           onChange={(e) => {
             const v = e.target.value
             if (/^-?\d*(\.\d*)?$/.test(v)) setMonthlyBaseInput(v)
@@ -128,26 +128,26 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
       
       <div>
         <div className="mb-1 flex items-center justify-between">
-          <Label htmlFor="taxPercent">세율(%)</Label>
+          <Label htmlFor="taxPercent">Tax (%)</Label>
           <button
             type="button"
             onClick={locateAndSearchTax}
-            title="현재 위치로 세율 검색"
+            title="Search sales tax by current location"
             className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-muted"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <path d="M12 21s7-4.35 7-11a7 7 0 10-14 0c0 6.65 7 11 7 11z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
               <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
             </svg>
-            {locating ? '검색 중…' : '내 위치로 검색'}
-            <span className="sr-only">현재 위치 기반 세율 검색</span>
+            {locating ? 'Searching…' : 'Find by location'}
+            <span className="sr-only">Search local sales tax</span>
           </button>
         </div>
         <Input
           id="taxPercent"
           value={taxInput}
           inputMode="decimal"
-          placeholder="예: 7.75"
+          placeholder="e.g., 7.75"
           onChange={(e) => {
             const v = e.target.value
             // Allow empty, digits, one optional decimal point with optional trailing digits
@@ -163,27 +163,31 @@ export const QuoteForm: React.FC<Props> = ({ quote, onChange }) => {
           }}
         />
       </div>
-      <div>
-        <Label htmlFor="downpayment">Total Down Payment</Label>
-        <div className="flex items-center gap-3">
-          <Input id="downpayment" {...bindNumber('downpayment')} />
-          <div className="flex items-center gap-2">
-            <Switch
-              id="firstMonthInDAS"
-              checked={quote.firstMonthInDAS}
-              onCheckedChange={(v) => set('firstMonthInDAS')(v as any)}
-            />
-            <span className="text-xs text-muted-foreground whitespace-nowrap">첫 달 포함</span>
+      <div className="col-span-2 md:col-span-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <Label htmlFor="downpayment">Total Down Payment</Label>
+            <div className="flex items-center gap-3">
+              <Input id="downpayment" {...bindNumber('downpayment')} />
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="firstMonthInDAS"
+                  checked={quote.firstMonthInDAS}
+                  onCheckedChange={(v) => set('firstMonthInDAS')(v as any)}
+                />
+                <span className="text-xs text-muted-foreground whitespace-nowrap">Include first month</span>
+              </div>
+            </div>
+          </div>
+          <div className="md:col-span-3">
+            <Label htmlFor="dmvFee">DMV/Registration</Label>
+            <Input id="dmvFee" {...bindNumber('dmvFee')} />
+          </div>
+          <div className="md:col-span-3">
+            <Label htmlFor="dispositionFee">Disposition Fee</Label>
+            <Input id="dispositionFee" {...bindNumber('dispositionFee')} />
           </div>
         </div>
-      </div>
-      <div className="md:max-w-[14rem]">
-        <Label htmlFor="dmvFee">DMV/등록비</Label>
-        <Input id="dmvFee" {...bindNumber('dmvFee')} />
-      </div>
-      <div className="md:max-w-[14rem]">
-        <Label htmlFor="dispositionFee">종료 수수료(선택)</Label>
-        <Input id="dispositionFee" {...bindNumber('dispositionFee')} />
       </div>
     </div>
   )

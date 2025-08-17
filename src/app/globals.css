@@ -13,8 +13,9 @@
   --card-foreground: 222.2 84% 4.9%;
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
-  --primary: 47 95% 55%; /* gold per memory */
-  --primary-foreground: 26 83% 14%;
+  /* Primary: #9CB9C0 */
+  --primary: 194 19% 69%;
+  --primary-foreground: 210 15% 15%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
   --accent: 210 40% 96.1%;
@@ -40,4 +41,31 @@ body {
 .cell-sum-strong {
   @apply bg-orange-100; /* orange */
 }
+
+/* Typography utilities */
+.prose h4 {
+  @apply mt-4 text-base font-semibold;
+}
+.prose ul {
+  @apply list-disc pl-5;
+}
+
+/* Landing animations */
+@keyframes cln-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+@keyframes cln-drive {
+  0% { transform: translateX(0) rotate(0deg); }
+  80% { transform: translateX(160px) rotate(1deg); }
+  100% { transform: translateX(150px) rotate(0deg); }
+}
+@keyframes cln-pop {
+  0% { transform: scale(0.95); }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.animate-float { animation: cln-float 3s ease-in-out infinite; }
+.animate-drive { animation: cln-drive 1.2s ease-in-out forwards; }
+.animate-pop { animation: cln-pop .6s ease-out forwards; }
 

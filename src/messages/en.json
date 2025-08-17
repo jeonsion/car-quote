@@ -1,0 +1,21 @@
+{
+  "title": "Lease Quote Comparator",
+  "subtitle": "Enter local tax, monthly-taxed. Input multiple quotes like a sheet to compare Real Total and Effective Monthly at a glance.",
+  "form": {
+    "dealer": "Notes/Dealer",
+    "term": "Term (months)",
+    "monthlyBase": "Monthly Base",
+    "taxPercent": "Tax (%)",
+    "firstMonth": "Include first month in DAS",
+    "downpayment": "Total Down Payment",
+    "dmv": "DMV/Registration",
+    "disposition": "Disposition Fee (optional)"
+  },
+  "result": {
+    "title": "Results",
+    "realTotal": "Real Total",
+    "effective": "Effective Monthly"
+  },
+  "compare": "Compare"
+}
+

@@ -40,6 +40,12 @@
       ],
       "@/remote/*": [
         "src/remote/*"
+      ],
+      "@/i18n/*": [
+        "src/i18n/*"
+      ],
+      "@/messages/*": [
+        "src/messages/*"
       ]
     },
     "incremental": true

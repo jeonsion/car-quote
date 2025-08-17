@@ -1,12 +1,18 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { SITE, SITE_URL } from '@/constants/site'
+import { Navbar } from '@/components/site/Navbar'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE.title,
   description: SITE.description,
   keywords: SITE.keywords,
+  icons: {
+    icon: [{ url: '/images/favicon.ico', type: 'image/x-icon' }],
+    shortcut: ['/images/favicon.ico'],
+    apple: [{ url: '/images/favicon.ico' }],
+  },
   alternates: { canonical: '/' },
   openGraph: {
     title: SITE.title,
@@ -32,14 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className="min-h-screen antialiased">
+        <Navbar />
         <div className="mx-auto max-w-6xl p-4 md:p-8">
-          <header className="mb-6 border-b pb-4 md:mb-8">
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">리스 비교 계산기</h1>
-            <p className="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
-              지역 세율 입력, 월 과세 고정. 여러 견적을 표처럼 입력해 Real Total과 Effective Monthly를 한눈에 비교하세요.
-            </p>
-          </header>
-
           {children}
           <footer className="mt-10 flex justify-center">
             <a

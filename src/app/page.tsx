@@ -9,6 +9,8 @@ import { QuotesTable } from '@/features/quotes/components/QuotesTable'
 import { Quote } from '@/features/quotes/types'
 import { useCapture } from '@/hooks/useCapture'
 import { computeAll } from '@/features/quotes/lib/calc'
+import { Hero } from '@/components/site/Hero'
+import { AboutSection } from '@/components/site/AboutSection'
 import * as React from 'react'
 
 export default function Page() {
@@ -24,7 +26,7 @@ export default function Page() {
   const addQuote = () => {
     const base = quotes[0]
     const id = `q-${Date.now()}`
-    const copy: Quote = { ...base, id, dealer: '' }
+    const copy: Quote = { ...base, id, dealer: 'Untitled' }
     setQuotes((prev) => [...prev, copy])
     setActiveId(id)
   }
@@ -61,7 +63,7 @@ export default function Page() {
   }
 
   return (
-    <main className="grid grid-cols-1 gap-6 md:grid-cols-12">
+    <main id="calculator" className="grid grid-cols-1 gap-6 md:grid-cols-12">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -75,19 +77,23 @@ export default function Page() {
           }),
         }}
       />
+      <div className="md:col-span-12">
+        <Hero />
+      </div>
+
       <Card className="md:col-span-8">
         <CardHeader className="flex-row items-center justify-between">
-          <CardTitle>견적 입력</CardTitle>
+          <CardTitle>Enter Quote</CardTitle>
           <div className="flex gap-2">
             <button
               onClick={resetActive}
-              className="rounded border px-3 py-1.5 text-sm text-foreground hover:bg-muted"
-              title="현재 견적 입력값을 0으로 초기화"
+              className="rounded-full border px-4 py-1.5 text-sm text-foreground hover:bg-muted"
+              title="Reset current quote to zero"
             >
-              초기화
+              Reset
             </button>
-            <button onClick={addQuote} className="rounded bg-primary px-3 py-1.5 text-sm text-primary-foreground">
-              견적 추가
+            <button onClick={addQuote} className="rounded-full bg-primary px-4 py-1.5 text-sm text-primary-foreground hover:brightness-95">
+              Add Quote
             </button>
           </div>
         </CardHeader>
@@ -99,13 +105,13 @@ export default function Page() {
                   onClick={() => setActiveId(q.id)}
                   className={`rounded border px-2 py-1 text-xs ${activeId === q.id ? 'bg-primary text-primary-foreground' : ''}`}
                 >
-                  {q.dealer || '무제'}
+                  {q.dealer || 'Untitled'}
                 </button>
                 {quotes.length > 1 && (
                   <button
                     onClick={() => deleteQuote(q.id)}
                     className="rounded bg-red-500 px-1.5 py-0.5 text-xs text-white hover:bg-red-600"
-                    title="견적 삭제"
+                    title="Delete quote"
                   >
                     ×
                   </button>
@@ -121,16 +127,18 @@ export default function Page() {
         <ResultCard quote={active} />
       </div>
 
-      <div className="md:col-span-12">
+      <div id="compare" className="md:col-span-12">
         <Card>
           <CardHeader className="flex-row items-center justify-between">
-            <CardTitle>비교</CardTitle>
+            <CardTitle>Compare</CardTitle>
           </CardHeader>
           <CardContent id="comparison-table">
             <QuotesTable quotes={quotes} />
           </CardContent>
         </Card>
       </div>
+      
+      <AboutSection />
     </main>
   )
 }
