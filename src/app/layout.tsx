@@ -21,22 +21,27 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     type: 'website',
     locale: 'ko_KR',
+    images: [{ url: '/images/logo.png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE.title,
     description: SITE.description,
+    images: ['/images/logo.png'],
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body className="min-h-screen antialiased">
         <Navbar />
         <div className="mx-auto max-w-6xl p-4 md:p-8">
