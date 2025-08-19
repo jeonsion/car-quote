@@ -5,7 +5,7 @@ import { Navbar } from '@/components/site/Navbar'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE.title,
+  title: 'Car Lease Comparison Calculator | CarLeaseNest',
   description: SITE.description,
   keywords: SITE.keywords,
   icons: {
@@ -13,27 +13,24 @@ export const metadata: Metadata = {
     shortcut: ['/images/favicon.ico'],
     apple: [{ url: '/images/favicon.ico' }],
   },
+  themeColor: '#9CB9C0',
   alternates: { canonical: '/' },
   openGraph: {
-    title: SITE.title,
+    title: 'Car Lease Comparison Calculator | CarLeaseNest',
     description: SITE.description,
     url: SITE_URL,
     siteName: SITE.name,
     type: 'website',
-    locale: 'ko_KR',
+    locale: 'en_US',
     images: [{ url: '/images/logo.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: SITE.title,
+    title: 'Car Lease Comparison Calculator | CarLeaseNest',
     description: SITE.description,
     images: ['/images/logo.png'],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+  robots: 'index, follow, max-image-preview:large',
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
   },

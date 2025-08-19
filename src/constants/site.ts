@@ -4,13 +4,17 @@ export const SITE = {
   name: 'CarLeaseNest',
   title: 'CarLeaseNest | Lease Quote Comparator',
   description:
-    'Enter your local tax and compare multiple car lease quotes at a glance with monthly-taxed pricing. See Real Total and Effective Monthly instantly.',
+    'Car lease comparison calculator. Enter your local sales tax and compare multiple car lease quotes at a glance with monthly‑taxed pricing. See Real Total and Effective Monthly instantly.',
   keywords: [
+    'car lease comparison',
+    'lease comparison',
+    'compare lease quotes',
     'car lease',
     'lease calculator',
-    'lease quote',
+    'lease quotes',
     'effective monthly',
     'real total',
+    'sales tax',
   ],
 }
 
